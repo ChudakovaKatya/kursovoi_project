@@ -3,16 +3,19 @@
 #include <locale.h>
 #include <math.h>
 
-#define UCL 63.83 // верхняя граница Q
+#define UCL 63.83 // верхняя граница Q 111
+
+double calc_Q(double x);
+int proverca_Q(double Q); 
 
 int main(void)
 {
     setlocale(LC_CTYPE, "UTF-8");
 
-    double x; // показание датчика
-    double Q; // индикатор процесса
-    int state; // состояние датчика
-    int i; // счётчик цикла
+    double x;   // показание датчика
+    double Q;   // индикатор процесса
+    int state;  // состояние датчика
+    int i;      // счётчик цикла
 
     printf("----------------------------------МОНИТОРИНГ ДАВЛЕНИЯ РУБАШКИ----------------------------------\n\n");
 
@@ -26,33 +29,14 @@ int main(void)
         if (x < 1 || x > 8)
         {
             printf("Ошибка: показание вне диапазона [1...8] бар.\n\n");
-            
         }
         else
         {
             // Подсчеты Q по формуле
-            if (x < 2.0)
-            {
-                Q = 3 * (x - 2) + 10;
-            }
-            else if (x >= 2.0 && x <= 5.0)
-            {
-                Q = 2 * sqrt(x - 3.5 + 2) + 45;
-            }
-            else
-            {
-                Q = (pow(x - 5, 2) / 1) + 55;
-            }
+            Q = calc_Q(x);
 
             // Контроль по верхней границе
-            if (Q > UCL)
-            {
-                state = 1; // ПРЕВЫШЕНО ЗНАЧЕНИЕ Q
-            }
-            else
-            {
-                state = 0; // НОРМАЛЬНЫЙ Q
-            }
+            state = proverca_Q(Q);
 
             // Вывод результата
             printf("X = %.2f   |   Q = %.2f   |   Состояние: ", x, Q);
@@ -68,4 +52,37 @@ int main(void)
     }
 
     printf("ОБРАБОТКА ЗАВЕРШЕНА\n");
+    return 0;
+}
+
+double calc_Q(double x)
+{
+    double Q;
+    if (x < 2.0)
+    {
+        Q = 3 * (x - 2) + 10;
+    }
+    else if (x >= 2.0 && x <= 5.0)
+    {
+        Q = 2 * sqrt(x - 3.5 + 2) + 45;
+    }
+    else
+    {
+        Q = (pow(x - 5, 2) / 1) + 55;
+    }
+    return Q;
+}
+
+int proverca_Q(double Q)
+{
+    int state;
+    if (Q > UCL)
+    {
+        state = 1; // ПРЕВЫШЕНО ЗНАЧЕНИЕ Q
+    }
+    else
+    {
+        state = 0; // НОРМАЛЬНЫЙ Q
+    }
+    return state;
 }
