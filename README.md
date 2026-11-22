@@ -58,7 +58,7 @@
 
 Цепочка преобразования: **X → f(X) → Q → CONTROL → STATE**
 
-![Блок-схема](flowchart.png)
+![Блок-схема](flowchart.png
 
 ---
 
