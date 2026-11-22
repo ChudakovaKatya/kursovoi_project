@@ -58,7 +58,7 @@
 
 Цепочка преобразования: **X → f(X) → Q → CONTROL → STATE**
 
-![Блок-схема](kpschema1.png)
+![Блок-схема](kpschema2.png)
 
 ---
 
