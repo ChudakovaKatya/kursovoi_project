@@ -40,7 +40,7 @@
 ---
 
 ## Формула Q = f(X)
-![Формула](formula1.png)
+
 $$
 Q(X) = 
 \begin{cases} 
